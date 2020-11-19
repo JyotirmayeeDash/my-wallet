@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class MoneyTransferRequest {
 
     @NotBlank
-    private String toUserName;
+    private String receiver;
 
     @NotNull
     private BigDecimal transferAmount;

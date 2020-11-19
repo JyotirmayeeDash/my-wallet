@@ -4,6 +4,7 @@ import com.wallet.entity.User;
 import com.wallet.model.CreateUserResponse;
 import com.wallet.model.UserDetails;
 import com.wallet.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired

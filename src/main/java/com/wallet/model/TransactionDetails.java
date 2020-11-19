@@ -25,6 +25,8 @@ public class TransactionDetails {
     @NotNull
     private BigDecimal transactionAmount;
 
+    private String transactionType;
+
     private UserDetails userDetails;
 
     private ZonedDateTime creationTime;

@@ -1,8 +1,8 @@
 package com.wallet.controller;
 
-import com.wallet.entity.Transaction;
 import com.wallet.model.*;
 import com.wallet.service.TransactionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
+@Slf4j
 public class TransactionController {
 
     @Autowired
@@ -26,7 +27,6 @@ public class TransactionController {
     @PostMapping("/transfer")
     public MoneyTransferResponse transferMoney(@Valid @RequestBody MoneyTransferRequest moneyTransferRequest, Authentication authentication) {
 
-        System.out.println("User name is"+authentication.getName());
         return transactionService.transferMoney(moneyTransferRequest, authentication.getName());
     }
 
