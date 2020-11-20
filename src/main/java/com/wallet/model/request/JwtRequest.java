@@ -1,4 +1,4 @@
-package com.wallet.model;
+package com.wallet.model.request;
 
 import lombok.Data;
 

@@ -28,11 +28,8 @@ public class User {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Column(name = "ACCOUNT_NUMBER")
-    private String accountNumber;
-
     @Column(name = "ACCOUNT_BALANCE")
-    private BigDecimal accountBalance;
+    private BigDecimal walletBalance;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PAYMENT_METHOD_DETAIL_ID", referencedColumnName = "PAYMENT_METHOD_DETAIL_ID")

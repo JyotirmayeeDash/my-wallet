@@ -1,8 +1,10 @@
 package com.wallet.service;
 
+import com.wallet.constant.ErrorType;
 import com.wallet.entity.User;
-import com.wallet.model.CreateUserResponse;
-import com.wallet.model.UserDetails;
+import com.wallet.model.response.CreateUserResponse;
+import com.wallet.model.exception.CustomException;
+import com.wallet.model.request.UserDetails;
 import com.wallet.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -27,8 +29,13 @@ public class UserService {
     private PasswordEncoder bcryptEncoder;
 
     public CreateUserResponse createUser(UserDetails userDetails) {
-        User user = modelMapper.map(userDetails, User.class);
-        user.setAccountBalance(BigDecimal.ZERO);
+        User user = userRepository.findByUserName(userDetails.getUserName());
+
+        if(user!=null) {
+            throw new CustomException(ErrorType.USER_ALREADY_EXISTS);
+        }
+        user = modelMapper.map(userDetails, User.class);
+        user.setWalletBalance(BigDecimal.ZERO);
         user.setCreationTime(ZonedDateTime.now());
         user.setEncodedPassword(bcryptEncoder.encode(userDetails.getPassword()));
         userRepository.save(user);

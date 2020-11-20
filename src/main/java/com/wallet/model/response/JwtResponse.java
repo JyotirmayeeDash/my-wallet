@@ -1,4 +1,4 @@
-package com.wallet.model;
+package com.wallet.model.response;
 
 import java.io.Serializable;
 

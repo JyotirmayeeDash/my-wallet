@@ -1,40 +1,39 @@
-package com.wallet.model;
+package com.wallet.model.request;
 
 import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 @Data
-@Valid
 public class UserDetails {
 
     private int userId;
 
-    @NotBlank
+    @NotBlank(message = "{error.username.required}")
     private String userName;
 
-    @NotBlank
+    @NotBlank(message = "{error.password.required}")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "{error.emailid.required}")
     @Email
     private String emailId;
 
-    @NotBlank
+    @NotBlank(message = "{error.phonenumber.required}")
     private String phoneNumber;
 
-    private String accountNumber;
+    private BigDecimal walletBalance;
 
-    private BigDecimal accountBalance;
+    @Valid
+    private PaymentMethodDetails paymentMethod;
 
-    private PaymentMethodDetails paymentMethodDetails;
-
-    private List<TransactionDetails> transactionDetails;
+    private List<TransactionDetails> transactions;
 
     private ZonedDateTime creationTime;
 }

@@ -1,7 +1,7 @@
 package com.wallet.controller;
 
-import com.wallet.model.CreateUserResponse;
-import com.wallet.model.UserDetails;
+import com.wallet.model.response.CreateUserResponse;
+import com.wallet.model.request.UserDetails;
 import com.wallet.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

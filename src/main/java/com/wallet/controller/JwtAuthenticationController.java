@@ -2,8 +2,8 @@ package com.wallet.controller;
 
 
 import com.wallet.config.JwtTokenUtil;
-import com.wallet.model.JwtRequest;
-import com.wallet.model.JwtResponse;
+import com.wallet.model.request.JwtRequest;
+import com.wallet.model.response.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,11 +1,9 @@
-package com.wallet.model;
+package com.wallet.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.wallet.entity.Transaction;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -27,7 +25,7 @@ public class TransactionDetails {
 
     private String transactionType;
 
-    private UserDetails userDetails;
-
+    private UserDetails user;
+    
     private ZonedDateTime creationTime;
 }

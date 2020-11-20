@@ -1,6 +1,12 @@
 package com.wallet.controller;
 
-import com.wallet.model.*;
+import com.wallet.model.request.MoneyTransferRequest;
+import com.wallet.model.request.RefundRequest;
+import com.wallet.model.request.TransactionDetails;
+import com.wallet.model.response.AddMoneyResponse;
+import com.wallet.model.response.MoneyTransferResponse;
+import com.wallet.model.response.RefundResponse;
+import com.wallet.model.response.StatusEnquiryResponse;
 import com.wallet.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +51,7 @@ public class TransactionController {
     @PostMapping("/refund")
     public RefundResponse refundTransaction(@Valid @RequestBody RefundRequest refundRequest, Authentication authentication) {
 
-        return transactionService.refundTransaction(refundRequest);
+        return transactionService.refundTransaction(refundRequest, authentication.getName());
     }
 
 }

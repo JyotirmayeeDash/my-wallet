@@ -1,4 +1,4 @@
-package com.wallet.model;
+package com.wallet.model.request;
 
 import lombok.Data;
 
@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 @Valid
 public class RefundRequest {
 
-    @NotBlank
-    private String transactionId;
+    private String debitTransactionId;
 
     @NotNull
     private BigDecimal transactionAmount;
