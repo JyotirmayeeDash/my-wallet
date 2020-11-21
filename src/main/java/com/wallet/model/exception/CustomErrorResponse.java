@@ -17,9 +17,7 @@ public class CustomErrorResponse {
 
     private ZonedDateTime timeStamp;
     private HttpStatus status;
-    private String transactionStatus;
     private String error;
-    private String path;
     private Object details;
 
     public CustomErrorResponse(String errorMessage, HttpStatus httpStatus) {

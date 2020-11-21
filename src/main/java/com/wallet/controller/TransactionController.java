@@ -71,14 +71,14 @@ public class TransactionController {
     /**
      * Endpoint to get all the transaction details of a user.
      *
-     * @param userName user name
-     * @return transaction details list
+     * @param authentication authentication
+     * @return transactionDetails list
      */
-    @GetMapping("/{userName}")
-    public List<TransactionDetails> getTransactionByUserName(@Valid @PathVariable String userName) {
+    @GetMapping("/usertransactiondetails")
+    public List<TransactionDetails> getTransactionByUserName(Authentication authentication) {
 
-        log.info("Received request to fetch all the transactions for user : "+userName);
-        return transactionService.getTransactions(userName);
+        log.info("Received request to fetch all the transactions for user : "+authentication.getName());
+        return transactionService.getTransactions(authentication.getName());
     }
 
     /**

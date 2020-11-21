@@ -79,7 +79,7 @@ public class TransactionService {
         userRepository.save(user);
         AddMoneyResponse response = new AddMoneyResponse();
 
-        response.setMessage("Money added successfully.");
+        response.setMessage("Fund added successfully.");
         response.setTransactionId(transaction.getTransactionId());
         return response;
     }
@@ -100,7 +100,7 @@ public class TransactionService {
         userRepository.save(receiver);
 
         MoneyTransferResponse moneyTransferResponse = new MoneyTransferResponse();
-        moneyTransferResponse.setMessage("Money transferred successfully.");
+        moneyTransferResponse.setMessage("Fund transferred successfully.");
     return moneyTransferResponse;
     }
 
@@ -193,11 +193,6 @@ public class TransactionService {
     public List<TransactionDetails> getTransactions(String userName) {
     List<Transaction> transactionList = transactionRepository.findByUserName(userName);
 
-    if(transactionList == null || transactionList.isEmpty() ) {
-        log.error("No user found in the database with the given name."+userName);
-        throw new CustomException(ErrorType.USER_NOT_FOUND);
-
-    }
     List<TransactionDetails> transactionDetailsList = new ArrayList<>();
     TransactionDetails transactionDetails = null;
     for(Transaction transaction : transactionList){

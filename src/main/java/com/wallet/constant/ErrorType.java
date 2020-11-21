@@ -9,8 +9,7 @@ import java.io.Serializable;
  */
 public enum ErrorType implements Serializable {
 
-    USER_NOT_FOUND("error.user.not.found", HttpStatus.NOT_FOUND),
-    TRANSACTION_ID_NOT_FOUND("error.transaction.not.found", HttpStatus.BAD_REQUEST),
+    TRANSACTION_ID_NOT_FOUND("error.transaction.not.found", HttpStatus.NOT_FOUND),
     USER_ALREADY_EXISTS("error.user.already.exists", HttpStatus.BAD_REQUEST),
     INSUFFICIENT_WALLET_BALANCE("error.insufficient.amount", HttpStatus.BAD_REQUEST),
     BANK_SERVER_ERROR("error.bank.server", HttpStatus.BAD_REQUEST);
