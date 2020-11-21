@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Service class for authentication.
+ */
 @Service
 @Slf4j
 public class JwtUserDetailsService implements UserDetailsService {

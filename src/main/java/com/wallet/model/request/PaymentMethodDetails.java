@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Represents the payment method details.
+ */
 @Data
 public class PaymentMethodDetails {
 

@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+/**
+ * This entity class holds the user details.
+ */
 @Data
 @Entity
 @Table(name = "USER_DETAILS")

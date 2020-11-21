@@ -6,8 +6,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+/**
+ * Represents the refund request.
+ */
 @Data
-@Valid
 public class RefundRequest {
 
     private String debitTransactionId;

@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
 
+/**
+ * Enum that holds all the error types.
+ */
 public enum ErrorType implements Serializable {
 
     USER_NOT_FOUND("error.user.not.found", HttpStatus.NOT_FOUND),

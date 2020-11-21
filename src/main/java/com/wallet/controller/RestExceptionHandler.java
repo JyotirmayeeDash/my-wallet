@@ -27,6 +27,9 @@ import static com.wallet.constant.WalletConstants.ERROR_KEY;
 import static com.wallet.constant.WalletConstants.INVALID_VALUE_KEY;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+/**
+ * This is the handler class for all the exceptions.
+ */
 @ControllerAdvice
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -45,6 +48,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String error = ex.getParameterName() + " parameter is missing";
         return buildResponseEntity(new CustomErrorResponse(error, BAD_REQUEST));
     }
+
 
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(

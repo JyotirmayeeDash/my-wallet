@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+/**
+ * This controller class is used to create user(Sign-up).
+ */
 @RestController
 @RequestMapping("/users")
 @Slf4j
@@ -20,6 +23,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * End point to create a new user.
+     *
+     * @param user user
+     * @return create user response
+     */
     @PostMapping("/user")
     public CreateUserResponse createUser(@Valid @RequestBody UserDetails user) {
 

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This class is used to provide mocked response for all the bank operations.
+ */
 @RestController
 @RequestMapping("/bank")
 @Slf4j

@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Model for representing custom errors.
+ */
 @Data
 @NoArgsConstructor
 public class CustomErrorResponse {

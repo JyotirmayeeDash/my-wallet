@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/**
+ * This entity class holds the transaction details.
+ */
 @Data
 @Entity
 @Table(name = "TRANSACTION_DETAILS")

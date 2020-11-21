@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/**
+ * Service class for user operations.
+ */
 @Service
 @Slf4j
 public class UserService {
@@ -31,6 +34,12 @@ public class UserService {
     public UserService() {
     }
 
+    /**
+     * Creates a new user and saves in the database.
+     *
+     * @param userDetails user details
+     * @return create user response
+     */
     public CreateUserResponse createUser(UserDetails userDetails) {
         User user = userRepository.findByUserName(userDetails.getUserName());
 

@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+/**
+ * This is the controller class to perform authentication.
+ */
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -29,6 +32,13 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
 
+	/**
+	 * Performs authentication and provides the JWT token.
+	 *
+	 * @param authenticationRequest
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {

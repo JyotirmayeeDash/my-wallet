@@ -7,6 +7,9 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.stereotype.Component;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+/**
+ * Used to create spring beans.
+ */
 @Component
 public class CommonBeansConfig {
 

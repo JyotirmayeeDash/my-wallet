@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * This entity class holds the payment method details.
+ */
 @Data
 @Entity
 @Table(name = "PAYMENT_METHOD_DETAILS")

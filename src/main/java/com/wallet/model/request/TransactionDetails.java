@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/**
+ * Represents transaction details.
+ */
 @Data
 @Valid
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
