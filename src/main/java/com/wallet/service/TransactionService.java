@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.wallet.constant.WalletConstants.APPROVED_STATUS;
+import static com.wallet.constant.WalletConstants.*;
 
 @Service
 @Slf4j
@@ -51,9 +51,13 @@ public class TransactionService {
         bankAccountDetails.setUserName(name);
         StubBankResponse bankResponse = callBankApi(bankAccountDetails);
         if(!(APPROVED_STATUS).equals(bankResponse.getStatus())) {
+            log.error("Received error response from bank server.");
             throw new CustomException(ErrorType.BANK_SERVER_ERROR);
         }
-        user.setWalletBalance(user.getWalletBalance().add(transactionDetails.getTransactionAmount()));
+        BigDecimal charge = calculateCharge(transactionDetails.getTransactionAmount());
+        BigDecimal commission = calculateCommission(transactionDetails.getTransactionAmount());
+        BigDecimal finalAmount = transactionDetails.getTransactionAmount().subtract(charge).subtract(commission);
+        user.setWalletBalance(user.getWalletBalance().add(finalAmount));
         List<Transaction> transactionList = user.getTransactions();
         if(transactionList == null) {
             transactionList = new ArrayList<>();
@@ -66,6 +70,7 @@ public class TransactionService {
         AddMoneyResponse response = new AddMoneyResponse();
 
         response.setMessage("Money added successfully.");
+        response.setTransactionId(transaction.getTransactionId());
         return response;
     }
 
@@ -84,16 +89,24 @@ public class TransactionService {
 
     private User processSenderTransaction(String userName, MoneyTransferRequest moneyTransferRequest) {
         User sender = userRepository.findByUserName(userName);
-        if(sender.getWalletBalance().compareTo(moneyTransferRequest.getTransferAmount()) > 0) {
-           throw new CustomException(ErrorType.INSUFFICIENT_AMOUNT);
+        if(sender.getWalletBalance().compareTo(moneyTransferRequest.getTransferAmount()) < 0) {
+            log.error("Insufficient fund to transfer.");
+            throw new CustomException(ErrorType.INSUFFICIENT_WALLET_BALANCE);
         }
         StubBankAccountDetails bankAccountDetails = new StubBankAccountDetails();
         bankAccountDetails.setUserName(userName);
         StubBankResponse bankResponse = callBankApi(bankAccountDetails);
         if(!(APPROVED_STATUS).equals(bankResponse.getStatus())) {
+            log.error("Received error response from bank server.");
             throw new CustomException(ErrorType.BANK_SERVER_ERROR);
         }
-        sender.setWalletBalance(sender.getWalletBalance().subtract(moneyTransferRequest.getTransferAmount()));
+        System.out.println("transaction amount"+moneyTransferRequest.getTransferAmount());
+        System.out.println("wallet balance"+sender.getWalletBalance());
+
+        BigDecimal charge = calculateCharge(moneyTransferRequest.getTransferAmount());
+        BigDecimal commission = calculateCommission(moneyTransferRequest.getTransferAmount());
+        BigDecimal finalAmount = moneyTransferRequest.getTransferAmount().add(charge).add(commission);
+        sender.setWalletBalance(sender.getWalletBalance().subtract(finalAmount));
         List<Transaction> senderTransactionList = sender.getTransactions();
         if(senderTransactionList == null) {
             senderTransactionList = new ArrayList<>();
@@ -110,6 +123,7 @@ public class TransactionService {
         recipientBankAccountDetails.setUserName(moneyTransferRequest.getRecipient());
         StubBankResponse recipientBankResponse = callBankApi(recipientBankAccountDetails);
         if(!(APPROVED_STATUS).equals(recipientBankResponse.getStatus())) {
+            log.error("Received error response from bank server.");
             throw new CustomException(ErrorType.BANK_SERVER_ERROR);
         }
         receiver.setWalletBalance(receiver.getWalletBalance().add(moneyTransferRequest.getTransferAmount()));
@@ -126,6 +140,7 @@ public class TransactionService {
     public StatusEnquiryResponse getTransactionStatus(String transactionId) {
         Optional<Transaction> transaction = transactionRepository.findById(transactionId);
         if(!transaction.isPresent()) {
+            log.error("No transaction found in the database with the given transaction id."+transactionId);
             throw new CustomException(ErrorType.TRANSACTION_ID_NOT_FOUND);
         }
         StatusEnquiryResponse statusEnquiryResponse = new StatusEnquiryResponse();
@@ -138,6 +153,7 @@ public class TransactionService {
     List<Transaction> transactionList = transactionRepository.findByUserName(userName);
 
     if(transactionList == null || transactionList.isEmpty() ) {
+        log.error("No user found in the database with the given name."+userName);
         throw new CustomException(ErrorType.USER_NOT_FOUND);
 
     }
@@ -167,6 +183,7 @@ public class TransactionService {
         bankAccountDetails.setUserName(userName);
         StubBankResponse bankResponse = callBankApi(bankAccountDetails);
         if(!(APPROVED_STATUS).equals(bankResponse.getStatus())) {
+            log.error("Received error response from bank server.");
             throw new CustomException(ErrorType.BANK_SERVER_ERROR);
         }
         user.setWalletBalance(user.getWalletBalance().add(refundRequest.getTransactionAmount()));
@@ -214,5 +231,17 @@ public class TransactionService {
         log.info("Received " +result.getStatus() + " status from bank");
         return result;
 
+    }
+
+    private BigDecimal calculateCharge(BigDecimal amount) {
+        BigDecimal charge = new BigDecimal(CHARGE/100);
+        BigDecimal chargeAmount =(amount.multiply(charge));
+        return chargeAmount;
+    }
+
+    private BigDecimal calculateCommission(BigDecimal amount) {
+        BigDecimal commission = new BigDecimal(COMMISSION /100);
+        BigDecimal commissionAmount =(amount.multiply(commission));
+        return commissionAmount;
     }
 }

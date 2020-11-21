@@ -6,4 +6,6 @@ import lombok.Data;
 public class AddMoneyResponse {
 
     private String message;
+
+    private String transactionId;
 }

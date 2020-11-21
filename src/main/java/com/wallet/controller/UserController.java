@@ -1,7 +1,7 @@
 package com.wallet.controller;
 
-import com.wallet.model.response.CreateUserResponse;
 import com.wallet.model.request.UserDetails;
+import com.wallet.model.response.CreateUserResponse;
 import com.wallet.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ public class UserController {
     @PostMapping("/user")
     public CreateUserResponse createUser(@Valid @RequestBody UserDetails user) {
 
+        log.info("Received request to create user.");
         return userService.createUser(user);
     }
 
