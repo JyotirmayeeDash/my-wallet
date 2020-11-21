@@ -1,6 +1,7 @@
 package com.wallet.service;
 
 import com.wallet.constant.ErrorType;
+import com.wallet.constant.WalletConstants;
 import com.wallet.entity.Transaction;
 import com.wallet.entity.User;
 import com.wallet.model.StubBankAccountDetails;
@@ -79,7 +80,7 @@ public class TransactionService {
         userRepository.save(user);
         AddMoneyResponse response = new AddMoneyResponse();
 
-        response.setMessage("Fund added successfully.");
+        response.setMessage(WalletConstants.ADD_MONEY_SUCCESS_MESSAGE);
         response.setTransactionId(transaction.getTransactionId());
         return response;
     }
@@ -100,7 +101,7 @@ public class TransactionService {
         userRepository.save(receiver);
 
         MoneyTransferResponse moneyTransferResponse = new MoneyTransferResponse();
-        moneyTransferResponse.setMessage("Fund transferred successfully.");
+        moneyTransferResponse.setMessage(MONEY_TRANSFER_SUCCESS_MESSAGE);
     return moneyTransferResponse;
     }
 
@@ -114,7 +115,7 @@ public class TransactionService {
     private User processSenderTransaction(String userName, MoneyTransferRequest moneyTransferRequest) {
         User sender = userRepository.findByUserName(userName);
         if(sender.getWalletBalance().compareTo(moneyTransferRequest.getTransferAmount()) < 0) {
-            log.error("Insufficient fund to transfer.");
+            log.error("Insufficient funds to transfer.");
             throw new CustomException(ErrorType.INSUFFICIENT_WALLET_BALANCE);
         }
         StubBankAccountDetails bankAccountDetails = new StubBankAccountDetails();
@@ -241,7 +242,7 @@ public class TransactionService {
 
         userRepository.save(user);
 
-        response.setMessage("Money refunded successfully.");
+        response.setMessage(REFUND_SUCCESS_MESSAGE);
         response.setRefundAmount(refundRequest.getTransactionAmount());
         response.setRefundTransactionId(transaction.getTransactionId());
 

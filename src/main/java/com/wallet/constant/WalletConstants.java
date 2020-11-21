@@ -10,6 +10,12 @@ public final class WalletConstants {
     public static final String DECLINED_STATUS = "DECLINED";
     public static final double CHARGE = 0.2;
     public static final double COMMISSION = 0.05;
+    public static final String ADD_MONEY_SUCCESS_MESSAGE = "Funds added successfully.";
+    public static final String MONEY_TRANSFER_SUCCESS_MESSAGE = "Funds transferred successfully.";
+    public static final String REFUND_SUCCESS_MESSAGE = "Money refunded successfully.";
+    public static final String CREATE_USER_SUCCESS_MESSAGE = "User account created.";
+
+
 
     private WalletConstants () {
         //To prevent instantiation

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+import static com.wallet.constant.WalletConstants.CREATE_USER_SUCCESS_MESSAGE;
+
 /**
  * Service class for user operations.
  */
@@ -53,7 +55,7 @@ public class UserService {
         user.setEncodedPassword(bcryptEncoder.encode(userDetails.getPassword()));
         userRepository.save(user);
         CreateUserResponse createUserResponse = new CreateUserResponse();
-        createUserResponse.setMessage("User account created.");
+        createUserResponse.setMessage(CREATE_USER_SUCCESS_MESSAGE);
         return createUserResponse;
     }
 
